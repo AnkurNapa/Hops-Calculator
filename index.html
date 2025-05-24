@@ -336,28 +336,123 @@
                 max-width: 300px;
             }
         }
+
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .info-card h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .info-card ul, .info-card ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-card li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .info-card ul li {
+            list-style-type: disc;
+        }
+
+        .info-card ol li {
+            list-style-type: decimal;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .social-link i {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .info-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-link {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+
+        .online-label {
+            font-size: 0.7em;
+            font-weight: 600;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 2px;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🍺 Professional Brewing Hops Calculator</h1>
-            <p>Calculate hop additions for extracts and pellets based on professional brewing standards</p>
-            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                <p style="font-size: 1.1em; margin-bottom: 15px;">
-                    <strong>Created by: Ankur Napa</strong> - Professional Brewing Consultant
-                </p>
-                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: center;">
-                    <a href="https://www.linkedin.com/in/ankur-napa/" target="_blank" style="color: #fff; text-decoration: none; background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; transition: all 0.3s ease; display: flex; align-items: center; gap: 5px;">
-                        <span>🔗</span> LinkedIn Profile
-                    </a>
-                    <a href="https://wa.me/917755909445?text=Hi%20Ankur,%20I%20found%20your%20hops%20calculator%20and%20would%20like%20to%20connect!" target="_blank" style="color: #fff; text-decoration: none; background: rgba(37, 211, 102, 0.8); padding: 8px 15px; border-radius: 20px; transition: all 0.3s ease; display: flex; align-items: center; gap: 5px;">
-                        <span>📱</span> WhatsApp: +91 77559 09445
-                    </a>
-                    <a href="https://nas.io/craftbeer" target="_blank" style="color: #fff; text-decoration: none; background: rgba(255, 165, 0, 0.8); padding: 8px 15px; border-radius: 20px; transition: all 0.3s ease; display: flex; align-items: center; gap: 5px;">
-                        <span>🎓</span> Join My Craft Beer School
-                    </a>
-                </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/ankur-napa/" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                    <span>Connect on LinkedIn</span>
+                </a>
+                <a href="https://wa.me/917755909445" target="_blank" class="social-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://nas.io/craftbeer" target="_blank" class="social-link">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>
+                        Join My <span class="online-label">Online</span> Craft Beer School
+                    </span>
+                </a>
             </div>
         </div>
 
@@ -370,16 +465,22 @@
                         <input type="number" id="batchSize" placeholder="e.g., 100" step="0.1">
                     </div>
                     <div class="form-group">
+                        <label for="og">Original Gravity (OG)</label>
+                        <input type="number" id="og" placeholder="e.g., 1.050" step="0.001">
+                    </div>
+                    <div class="form-group">
+                        <label for="fg">Final Gravity (FG)</label>
+                        <input type="number" id="fg" placeholder="e.g., 1.010" step="0.001">
+                    </div>
+                    <div class="form-group">
+                        <label for="calculatedABV">Calculated ABV %</label>
+                        <input type="number" id="calculatedABV" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
                         <label for="targetBU">Target BU (Bitterness Units)</label>
                         <input type="number" id="targetBU" placeholder="e.g., 25" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="currentAlcohol">Current Alcohol %</label>
-                        <input type="number" id="currentAlcohol" placeholder="e.g., 5.5" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="finalAlcohol">Final Alcohol %</label>
-                        <input type="number" id="finalAlcohol" placeholder="e.g., 3.7" step="0.1">
                     </div>
                 </div>
             </div>
@@ -431,21 +532,58 @@
     <script>
         let hopCounter = 0;
 
-        // Predefined hop varieties with typical alpha acid percentages
+        // First, let's update the hop varieties object with 50 common hops
         const hopVarieties = {
-            'Hallertau': 8.0,
-            'Cascade': 9.9,
-            'Fuggles': 7.6,
-            'Galena': 15.1,
-            'Cluster': 8.2,
-            'Chinook': 12.0,
+            'Amarillo': 9.0,
+            'Azacca': 14.5,
+            'Bravo': 15.5,
+            'Calypso': 12.0,
+            'Cascade': 7.0,
             'Centennial': 10.0,
-            'Columbus': 14.0,
-            'Amarillo': 8.5,
+            'Chinook': 13.0,
             'Citra': 12.0,
-            'Mosaic': 11.5,
+            'Columbus': 15.0,
+            'Comet': 9.5,
+            'Crystal': 4.5,
+            'El Dorado': 15.0,
+            'Fuggle': 4.5,
+            'Galaxy': 14.0,
+            'Glacier': 5.5,
+            'Hallertau Blanc': 10.5,
+            'Hallertau Mittelfruh': 4.0,
+            'Hersbrucker': 3.5,
+            'Huell Melon': 7.0,
+            'Idaho 7': 13.0,
+            'Jester': 15.0,
+            'Loral': 11.5,
+            'Mosaic': 12.5,
+            'Motueka': 7.0,
+            'Nelson Sauvin': 12.0,
+            'Northern Brewer': 8.5,
+            'Nugget': 13.0,
+            'Pacifica': 5.5,
+            'Pekko': 14.0,
+            'Perle': 8.0,
+            'Rakau': 11.0,
+            'Saaz': 3.5,
+            'Sabro': 14.0,
             'Simcoe': 13.0,
-            'Custom': 0
+            'Strisselspalt': 3.5,
+            'Styrian Wolf': 12.0,
+            'Summit': 18.0,
+            'Tettnang': 4.5,
+            'Vic Secret': 16.0,
+            'Warrior': 16.0,
+            'Willamette': 5.5,
+            'Wai-iti': 3.0,
+            'Zappa': 11.0,
+            'Zeus': 15.0,
+            'Ahtanum': 6.0,
+            'Ariana': 9.0,
+            'Cashmere': 9.0,
+            'Denali': 14.0,
+            'Mandarina Bavaria': 8.5,
+            'Sultana': 15.0
         };
 
         // Extract types with concentrations and utilization rates
@@ -458,91 +596,55 @@
         };
 
         function addHopEntry() {
-            hopCounter++;
-            const hopEntries = document.getElementById('hopEntries');
-            
+            const id = hopCounter++;
             const hopEntry = document.createElement('div');
             hopEntry.className = 'hop-entry';
-            hopEntry.id = `hop-${hopCounter}`;
+            hopEntry.id = `hop-${id}`;
             
             hopEntry.innerHTML = `
                 <div class="hop-header">
-                    <div class="hop-title">Hop Addition #${hopCounter}</div>
-                    <button class="remove-hop" onclick="removeHopEntry(${hopCounter})">Remove</button>
+                    <div class="hop-title">Hop Addition #${id + 1}</div>
+                    <button class="remove-hop" onclick="removeHopEntry(${id})">Remove</button>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Addition Type</label>
-                        <select onchange="toggleHopType(${hopCounter})" id="hopType-${hopCounter}">
-                            <option value="pellet">Hop Pellets</option>
-                            <option value="extract">Hop Extract</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="varietyGroup-${hopCounter}">
-                        <label>Hop Variety</label>
-                        <select onchange="updateAlphaAcid(${hopCounter})" id="hopVariety-${hopCounter}">
-                            ${Object.keys(hopVarieties).map(variety => 
-                                `<option value="${variety}">${variety}</option>`
+                        <label for="hopVariety-${id}">Hop Variety</label>
+                        <select id="hopVariety-${id}" onchange="updateAlphaAcid(${id})">
+                            <option value="">Select Hop</option>
+                            ${Object.keys(hopVarieties).map(hop => 
+                                `<option value="${hop}">${hop}</option>`
                             ).join('')}
                         </select>
                     </div>
-                    <div class="form-group" id="extractGroup-${hopCounter}" style="display: none;">
-                        <label>Extract Type</label>
-                        <select id="extractType-${hopCounter}">
-                            ${Object.keys(extractTypes).map(extract => 
-                                `<option value="${extract}">${extract}</option>`
-                            ).join('')}
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
-                        <label>Alpha Acid %</label>
-                        <input type="number" id="alphaAcid-${hopCounter}" value="${hopVarieties['Hallertau']}" step="0.1">
+                        <label for="alphaAcid-${id}">Alpha Acid %</label>
+                        <input type="number" id="alphaAcid-${id}" step="0.1" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Utilization %</label>
-                        <input type="number" id="utilization-${hopCounter}" value="28" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label>Target BU from this hop</label>
-                        <input type="number" id="targetHopBU-${hopCounter}" placeholder="e.g., 8.33" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label>Addition Stage</label>
-                        <select id="additionStage-${hopCounter}">
+                        <label for="additionType-${id}">Addition Type</label>
+                        <select id="additionType-${id}">
                             <option value="kettle">Kettle</option>
-                            <option value="post-kettle">Post-Kettle</option>
-                            <option value="aging">Aging</option>
+                            <option value="whirlpool">Whirlpool</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="utilization-${id}">Utilization %</label>
+                        <input type="number" id="utilization-${id}" value="30" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="targetHopBU-${id}">Target BU</label>
+                        <input type="number" id="targetHopBU-${id}" step="0.1">
                     </div>
                 </div>
             `;
             
-            hopEntries.appendChild(hopEntry);
+            document.getElementById('hopEntries').appendChild(hopEntry);
         }
 
         function removeHopEntry(id) {
             const hopEntry = document.getElementById(`hop-${id}`);
             if (hopEntry) {
                 hopEntry.remove();
-            }
-        }
-
-        function toggleHopType(id) {
-            const hopType = document.getElementById(`hopType-${id}`).value;
-            const varietyGroup = document.getElementById(`varietyGroup-${id}`);
-            const extractGroup = document.getElementById(`extractGroup-${id}`);
-            const utilizationInput = document.getElementById(`utilization-${id}`);
-            
-            if (hopType === 'extract') {
-                varietyGroup.style.display = 'none';
-                extractGroup.style.display = 'block';
-                utilizationInput.value = '53'; // Default for extracts
-            } else {
-                varietyGroup.style.display = 'block';
-                extractGroup.style.display = 'none';
-                utilizationInput.value = '28'; // Default for pellets
             }
         }
 
@@ -558,24 +660,33 @@
             }
         }
 
+        function calculateABV() {
+            const og = parseFloat(document.getElementById('og').value);
+            const fg = parseFloat(document.getElementById('fg').value);
+            
+            if (og && fg) {
+                // ABV = (OG - FG) * 131.25
+                const abv = (og - fg) * 131.25;
+                document.getElementById('calculatedABV').value = abv.toFixed(2);
+                return abv;
+            }
+            return null;
+        }
+
         function calculateHops() {
             try {
                 const batchSize = parseFloat(document.getElementById('batchSize').value);
                 const targetBU = parseFloat(document.getElementById('targetBU').value);
-                const currentAlcohol = parseFloat(document.getElementById('currentAlcohol').value) || 0;
-                const finalAlcohol = parseFloat(document.getElementById('finalAlcohol').value) || 0;
+                const abv = calculateABV();
 
                 if (!batchSize || !targetBU) {
                     throw new Error('Please enter batch size and target BU');
                 }
 
-                // Convert HL to barrels (1 HL = 0.852 barrels)
                 const batchSizeBarrels = batchSize * 0.852;
-
-                // Adjust target BU for alcohol dilution if both alcohols are provided
                 let adjustedTargetBU = targetBU;
-                if (currentAlcohol && finalAlcohol && currentAlcohol !== finalAlcohol) {
-                    adjustedTargetBU = targetBU * (currentAlcohol / finalAlcohol);
+                if (abv) {
+                    adjustedTargetBU = targetBU * (1 + (abv / 100));
                 }
 
                 const hopEntries = document.querySelectorAll('.hop-entry');
@@ -584,62 +695,38 @@
 
                 hopEntries.forEach((entry, index) => {
                     const id = entry.id.split('-')[1];
-                    const hopType = document.getElementById(`hopType-${id}`).value;
+                    const hopName = document.getElementById(`hopVariety-${id}`).value;
                     const alphaAcid = parseFloat(document.getElementById(`alphaAcid-${id}`).value);
                     const utilization = parseFloat(document.getElementById(`utilization-${id}`).value);
                     const targetHopBU = parseFloat(document.getElementById(`targetHopBU-${id}`).value);
-                    const additionStage = document.getElementById(`additionStage-${id}`).value;
+                    const additionType = document.getElementById(`additionType-${id}`).value;
 
                     if (!alphaAcid || !utilization || !targetHopBU) {
                         return;
                     }
 
-                    let hopName, concentration;
+                    let additionWeight;
                     
-                    if (hopType === 'extract') {
-                        const extractType = document.getElementById(`extractType-${id}`).value;
-                        hopName = extractType;
-                        concentration = extractTypes[extractType].concentration;
+                    if (additionType === 'whirlpool') {
+                        // For whirlpool, use a standard rate of 0.5 kg/HL
+                        additionWeight = batchSize * 0.5;
                     } else {
-                        hopName = document.getElementById(`hopVariety-${id}`).value;
-                        concentration = alphaAcid;
-                    }
-
-                    // Calculate required addition
-                    let ppmRequired, additionRate, additionWeight;
-
-                    if (hopType === 'extract') {
-                        // Extract calculation: ppm = target BU / (concentration/100) / (utilization/100)
-                        ppmRequired = targetHopBU / (concentration / 100) / (utilization / 100);
-                        
-                        // Convert ppm to kg/HL using correct brewing conversion factor
-                        // From document: 1 lb/100 bbls = 36 ppm (wort), 100 bbls = 117.37 HL
-                        // Therefore: 1 ppm = (0.453592 kg/lb / 117.37 HL) / 36 = 0.000107 kg/HL
-                        additionRate = ppmRequired * 0.000107;
-                        additionWeight = additionRate * batchSize;
-                    } else {
-                        // Pellet calculation: alpha required = target BU / utilization
+                        // For kettle additions
                         const alphaRequired = targetHopBU / (utilization / 100);
                         const hopRequired = alphaRequired / (alphaAcid / 100);
-                        
-                        // Convert ppm whole hops to kg/HL (same conversion factor)
-                        additionRate = hopRequired * 0.000107;
+                        const additionRate = hopRequired * 0.000107;
                         additionWeight = additionRate * batchSize;
-                        ppmRequired = hopRequired; // Store for display
                     }
 
                     totalCalculatedBU += targetHopBU;
 
                     results.push({
                         hopName,
-                        hopType,
                         alphaAcid,
                         utilization,
+                        additionType,
                         targetBU: targetHopBU,
-                        additionStage,
-                        additionRate: additionRate.toFixed(3),
-                        additionWeight: additionWeight.toFixed(2),
-                        ppmRequired: hopType === 'extract' ? ppmRequired.toFixed(1) : (hopRequired || 0).toFixed(1)
+                        additionWeight: additionWeight.toFixed(3)
                     });
                 });
 
@@ -649,8 +736,7 @@
                     targetBU,
                     adjustedTargetBU: adjustedTargetBU.toFixed(1),
                     totalCalculatedBU: totalCalculatedBU.toFixed(1),
-                    currentAlcohol,
-                    finalAlcohol
+                    abv: abv ? abv.toFixed(2) : 'N/A'
                 });
 
             } catch (error) {
@@ -689,14 +775,12 @@
                 <table class="calculations-table">
                     <thead>
                         <tr>
-                            <th>Hop/Extract</th>
-                            <th>Type</th>
+                            <th>Hop Variety</th>
                             <th>Alpha Acid %</th>
+                            <th>Addition Type</th>
                             <th>Utilization %</th>
                             <th>Target BU</th>
-                            <th>Addition Stage</th>
-                            <th>Rate (kg/HL)</th>
-                            <th>Total Weight (kg)</th>
+                            <th>Amount (kg)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -706,12 +790,10 @@
                 html += `
                     <tr>
                         <td><strong>${result.hopName}</strong></td>
-                        <td>${result.hopType === 'extract' ? 'Extract' : 'Pellets'}</td>
                         <td>${result.alphaAcid}%</td>
+                        <td>${result.additionType}</td>
                         <td>${result.utilization}%</td>
                         <td>${result.targetBU} BU</td>
-                        <td>${result.additionStage}</td>
-                        <td>${result.additionRate} kg/HL</td>
                         <td><strong>${result.additionWeight} kg</strong></td>
                     </tr>
                 `;
@@ -728,9 +810,10 @@
 
         function resetCalculator() {
             document.getElementById('batchSize').value = '';
+            document.getElementById('og').value = '';
+            document.getElementById('fg').value = '';
+            document.getElementById('calculatedABV').value = '';
             document.getElementById('targetBU').value = '';
-            document.getElementById('currentAlcohol').value = '';
-            document.getElementById('finalAlcohol').value = '';
             document.getElementById('hopEntries').innerHTML = '';
             document.getElementById('results').style.display = 'none';
             hopCounter = 0;
@@ -743,6 +826,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             addHopEntry();
         });
+
+        // Add event listeners for OG and FG inputs
+        document.getElementById('og').addEventListener('input', calculateABV);
+        document.getElementById('fg').addEventListener('input', calculateABV);
     </script>
 </body>
 </html>
