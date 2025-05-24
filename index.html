@@ -611,10 +611,15 @@
                         <label for="hopVariety-${id}">Hop Variety</label>
                         <select id="hopVariety-${id}" onchange="updateAlphaAcid(${id})">
                             <option value="">Select Hop</option>
+                            <option value="Custom">Custom Hop</option>
                             ${Object.keys(hopVarieties).map(hop => 
                                 `<option value="${hop}">${hop}</option>`
                             ).join('')}
                         </select>
+                    </div>
+                    <div class="form-group custom-hop-name" style="display: none;">
+                        <label for="customHopName-${id}">Custom Hop Name</label>
+                        <input type="text" id="customHopName-${id}" placeholder="Enter custom hop name">
                     </div>
                     <div class="form-group">
                         <label for="alphaAcid-${id}">Alpha Acid %</label>
@@ -651,12 +656,20 @@
         function updateAlphaAcid(id) {
             const variety = document.getElementById(`hopVariety-${id}`).value;
             const alphaAcidInput = document.getElementById(`alphaAcid-${id}`);
+            const customHopNameGroup = document.querySelector(`#hop-${id} .custom-hop-name`);
             
-            if (variety !== 'Custom') {
-                alphaAcidInput.value = hopVarieties[variety];
-            } else {
+            if (variety === 'Custom') {
+                alphaAcidInput.readOnly = false;
                 alphaAcidInput.value = '';
-                alphaAcidInput.focus();
+                customHopNameGroup.style.display = 'block';
+            } else {
+                alphaAcidInput.readOnly = true;
+                if (variety !== '') {
+                    alphaAcidInput.value = hopVarieties[variety];
+                } else {
+                    alphaAcidInput.value = '';
+                }
+                customHopNameGroup.style.display = 'none';
             }
         }
 
@@ -695,7 +708,7 @@
 
                 hopEntries.forEach((entry, index) => {
                     const id = entry.id.split('-')[1];
-                    const hopName = document.getElementById(`hopVariety-${id}`).value;
+                    const hopType = document.getElementById(`hopVariety-${id}`).value;
                     const alphaAcid = parseFloat(document.getElementById(`alphaAcid-${id}`).value);
                     const utilization = parseFloat(document.getElementById(`utilization-${id}`).value);
                     const targetHopBU = parseFloat(document.getElementById(`targetHopBU-${id}`).value);
@@ -703,6 +716,14 @@
 
                     if (!alphaAcid || !utilization || !targetHopBU) {
                         return;
+                    }
+
+                    // Get hop name (use custom name if it's a custom hop)
+                    let hopName;
+                    if (hopType === 'Custom') {
+                        hopName = document.getElementById(`customHopName-${id}`).value || 'Custom Hop';
+                    } else {
+                        hopName = hopType;
                     }
 
                     let additionWeight;
